@@ -17,20 +17,24 @@ function Home() {
 
   useEffect(() => {
 
-    async function fetchData() {
-      try {
-        let res = await axios({
-          method: "get",
-          url: "../../../homedb.json"
+    function fetchData() {
+      fetch('../../../homedb.json')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
         })
-        let dataRes = res.data
-        setData(dataRes)
-
-      } catch (error) {
-        console.log(error)
-      }
+        .then(data => {
+          setData(data);
+        })
+        .catch(error => {
+          console.error('There has been a problem with your fetch operation:', error);
+        });
     }
-    fetchData()
+
+    fetchData();
+
   }, [])
 
   return (
