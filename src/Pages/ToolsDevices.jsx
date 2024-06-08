@@ -12,12 +12,12 @@ function ToolsDevices() {
       try {
         let res = await axios({
           method: "get",
-          url: "../../db.json"
+          url: "https://royal-crawling-coreopsis.glitch.me/toolsdevices"
         })
         let dataRes = res.data
         console.log(dataRes.toolsdevices)
-        setData(dataRes.toolsdevices)
-        setmData(dataRes.toolsdevices)
+        setData(dataRes)
+        setmData(dataRes)
       } catch (error) {
         console.log(error)
       }

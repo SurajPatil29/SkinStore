@@ -13,12 +13,12 @@ function HairCare() {
       try {
         let res = await axios({
           method: "get",
-          url: "../../db.json"
+          url: "https://royal-crawling-coreopsis.glitch.me/haircare"
         })
         let dataRes = res.data
         console.log(dataRes.haircare)
-        setData(dataRes.haircare)
-        setmData(dataRes.haircare)
+        setData(dataRes)
+        setmData(dataRes)
       } catch (error) {
         console.log(error)
       }

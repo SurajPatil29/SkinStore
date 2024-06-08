@@ -12,12 +12,12 @@ function Makeup() {
       try {
         let res = await axios({
           method: "get",
-          url: "../../db.json"
+          url: "https://royal-crawling-coreopsis.glitch.me/makeup"
         })
         let dataRes = res.data
         console.log(dataRes.makeup)
-        setData(dataRes.makeup)
-        setmData(dataRes.makeup)
+        setData(dataRes)
+        setmData(dataRes)
       } catch (error) {
         console.log(error)
       }

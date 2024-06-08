@@ -12,12 +12,12 @@ function Sunscreen() {
       try {
         let res = await axios({
           method: "get",
-          url: "../../db.json"
+          url: "https://royal-crawling-coreopsis.glitch.me/sunscreem"
         })
         let dataRes = res.data
         console.log(dataRes.sunscreem)
-        setData(dataRes.sunscreem)
-        setmData(dataRes.sunscreem)
+        setData(dataRes)
+        setmData(dataRes)
       } catch (error) {
         console.log(error)
       }

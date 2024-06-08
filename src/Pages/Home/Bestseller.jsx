@@ -9,24 +9,20 @@ function Bestseller() {
 
     useEffect(() => {
 
-        function fetchData() {
-          fetch('../../../homedb.json')
-            .then(response => {
-              if (!response.ok) {
-                throw new Error('Network response was not ok');
-              }
-              return response.json();
-            })
-            .then(data => {
-              setData(data);
-              setmData(data);
-            })
-            .catch(error => {
-              console.error('There has been a problem with your fetch operation:', error);
-            });
+        async function fetchData() {
+            try {
+                let res = await axios({
+                    method: "get",
+                    url: "https://lilac-mixed-muskmelon.glitch.me/homedb"
+                })
+                let dataRes = res.data
+                setData(dataRes)
+                setmData(dataRes)
+            } catch (error) {
+                console.log(error)
+            }
         }
-
-        fetchData();
+        fetchData() 
 
     }, [])
 

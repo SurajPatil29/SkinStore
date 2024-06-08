@@ -12,12 +12,12 @@ function SkinCare() {
       try {
         let res = await axios({
           method: "get",
-          url: "../../db.json"
+          url: "https://royal-crawling-coreopsis.glitch.me/skincare"
         })
         let dataRes = res.data
         console.log(dataRes.skincare)
-        setData(dataRes.skincare)
-        setmData(dataRes.skincare)
+        setData(dataRes)
+        setmData(dataRes)
       } catch (error) {
         console.log(error)
       }

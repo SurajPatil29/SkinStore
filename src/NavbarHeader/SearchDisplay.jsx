@@ -17,28 +17,47 @@ function SearchDisplay() {
     useEffect(() => {
 
         async function fetchData() {
-            try {
-                let res = await axios({
-                    method: "get",
-                    url: "../../db.json"
-                })
-                let dataRes = res.data
-                console.log(dataRes.toolsdevices)
-                let allData = [
-                    ...dataRes.skincare,
-                    ...dataRes.sunscreem,
-                    ...dataRes.makeup,
-                    ...dataRes.haircare,
-                    ...dataRes.toolsdevices
-                ];
+          try {
+            const urls = [
+              'https://royal-crawling-coreopsis.glitch.me/toolsdevices',
+              'https://royal-crawling-coreopsis.glitch.me/skincare',
+              'https://royal-crawling-coreopsis.glitch.me/makeup',
+              'https://royal-crawling-coreopsis.glitch.me/sunscreem',
+              'https://royal-crawling-coreopsis.glitch.me/haircare'
+            ];
 
-                setData(allData)
+            // Fetch all URLs concurrently
+            const responses = await Promise.all(urls.map(url => fetch(url)));
 
-            } catch (error) {
-                console.log(error)
-            }
+            // Check for any non-ok responses
+            responses.forEach(response => {
+              if (!response.ok) {
+                throw new Error(`Network response was not ok for URL: ${response.url}`);
+              }
+            });
+
+            // Parse all responses as JSON
+            const data = await Promise.all(responses.map(response => response.json()));
+
+            // Combine all data into a single array
+            const allData = [
+              ...data[0], // toolsdevices
+              ...data[1], // skincare
+              ...data[2], // makeup
+              ...data[3], // sunscreem
+              ...data[4]  // haircare
+            ];
+
+            // Set the combined data
+            setData(allData);
+
+          } catch (error) {
+            console.error('There has been a problem with your fetch operation:', error);
+          }
         }
-        fetchData()
+
+        fetchData();
+
     }, [])
 
     function handleRadioPrice(value) {
